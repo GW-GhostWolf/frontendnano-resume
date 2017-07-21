@@ -17,24 +17,29 @@ var bio = {
         header.prepend(HTMLheaderRole.replace("%data%", this.role));
         header.prepend(HTMLheaderName.replace("%data%", this.name));
 
-        // contacts in header
+        // contacts in header and footer
         var topContacts = $("#topContacts");
-        topContacts.append(HTMLcontactGeneric.replace("%contact%", "Cell").replace("%data%", this.contacts.mobile));
-        topContacts.append(HTMLcontactGeneric.replace("%contact%", "Email").replace("%data%", this.contacts.email));
-        topContacts.append(HTMLcontactGeneric.replace("%contact%", "GitHub").replace("%data%", this.contacts.github));
-        if (this.contacts.twitter) {
-            topContacts.append(HTMLcontactGeneric.replace("%contact%", "Twitter").replace("%data%", this.contacts.twitter));
-        }
-        topContacts.append(HTMLcontactGeneric.replace("%contact%", "Location").replace("%data%", this.contacts.location));
-        // contacts in footer
         var bottomContacts = $("#footerContacts");
-        bottomContacts.append(HTMLcontactGeneric.replace("%contact%", "Cell").replace("%data%", this.contacts.mobile));
-        bottomContacts.append(HTMLcontactGeneric.replace("%contact%", "Email").replace("%data%", this.contacts.email));
-        bottomContacts.append(HTMLcontactGeneric.replace("%contact%", "GitHub").replace("%data%", this.contacts.github));
-        if (this.contacts.twitter) {
-            bottomContacts.append(HTMLcontactGeneric.replace("%contact%", "Twitter").replace("%data%", this.contacts.twitter));
+        var contact = undefined;
+        function HTMLcontact(key, value) {
+            return value ? HTMLcontactGeneric.replace("%contact%", key).replace("%data%", value) : undefined;
         }
-        bottomContacts.append(HTMLcontactGeneric.replace("%contact%", "Location").replace("%data%", this.contacts.location));
+
+        contact = HTMLcontact("Cell", this.contacts.mobile);
+        topContacts.append(contact);
+        bottomContacts.append(contact);
+        contact = HTMLcontact("Email", this.contacts.email);
+        topContacts.append(contact);
+        bottomContacts.append(contact);
+        contact = HTMLcontact("GitHub", this.contacts.github);
+        topContacts.append(contact);
+        bottomContacts.append(contact);
+        contact = HTMLcontact("Twitter", this.contacts.twitter);
+        topContacts.append(contact);
+        bottomContacts.append(contact);
+        contact = HTMLcontact("Location", this.contacts.location);
+        topContacts.append(contact);
+        bottomContacts.append(contact);
 
         // other header information - picture, welcome, skills
         header.append(HTMLbioPic.replace("%data%", this.biopic));
@@ -102,11 +107,6 @@ var projects = {
         { "title": "APE", "dates": "2014 - 2016", "description": "Agent Profile single point of data entry", "images": ["https://www.mindtools.com/media/Diagrams/Flow-Charts-Figure-5.jpg", "http://artcuratorforkids.com/wp-content/uploads/2015/02/IMG_1956.jpg"] }
     ],
     "display": function () {
-        var HTMLprojectStart = '<div class="project-entry"></div>';
-        var HTMLprojectTitle = '<a href="#">%data%</a>';
-        var HTMLprojectDates = '<div class="date-text">%data%</div>';
-        var HTMLprojectDescription = '<p><br>%data%</p>';
-        var HTMLprojectImage = '<img src="%data%">';
         var proj = $("#projects");
         this.projects.forEach((project) => {
             var projEntry = $(HTMLprojectStart);
