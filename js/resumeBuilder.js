@@ -53,8 +53,8 @@ var bio = {
 
 var education = {
     "schools": [
-        { "name": "Baylor", "location": "Waco, TX", "degree": "BS", "dates": "2000-2001", "url": "http://www.baylor.edu", "majors": ["Computer Science"] },
-        { "name": "UTSA", "location": "San Antonio, TX", "degree": "BS", "dates": "2001-2003", "url": "http://www.utsa.edu", "majors": ["Math", "Statistics"] }
+        { "name": "Baylor", "location": "Waco, TX", "degree": "BS", "dates": "2010-2011", "url": "http://www.baylor.edu", "majors": ["Computer Science"] },
+        { "name": "UTSA", "location": "San Antonio, TX", "degree": "BS", "dates": "2011-2013", "url": "http://www.utsa.edu", "majors": ["Math", "Statistics"] }
     ],
     "onlineCourses": [
         { "title": "Intro JavaScript", "school": "Udacity", "dates": "Jun 2017", "url": "http://www.udacity.com/" }
@@ -82,10 +82,18 @@ var education = {
 
 var work = {
     "jobs": [
-        { "employer": "", "title": "", "location": "", "dates": "", "description": "" }
+        { "employer": "AT&T", "title": "Senior Web Developer", "location": "Naples, FL", "dates": "2014-current", "description": "Lead web developer on team of 7" }
     ],
     "display": function () {
         var exp = $("#workExperience");
+        this.jobs.forEach((job) => {
+            var workEntry = $(HTMLworkStart);
+            workEntry.append(HTMLworkEmployer.replace("%data%", job.employer) + HTMLworkTitle.replace("%data%", job.title));
+            workEntry.append(HTMLworkDates.replace("%data%", job.dates));
+            workEntry.append(HTMLworkLocation.replace("%data%", job.location));
+            workEntry.append(HTMLworkDescription.replace("%data%", job.description));
+            exp.append(workEntry);
+        });
     } // display
 }; // work
 
@@ -94,10 +102,16 @@ var projects = {
         { "title": "", "dates": "", "description": "", "images": [""] }
     ],
     "display": function () {
+        var HTMLprojectStart = '<div class="project-entry"></div>';
+        var HTMLprojectTitle = '<a href="#">%data%</a>';
+        var HTMLprojectDates = '<div class="date-text">%data%</div>';
+        var HTMLprojectDescription = '<p><br>%data%</p>';
+        var HTMLprojectImage = '<img src="%data%">';
         var proj = $("#projects");
-
     } // display
 }; // projects
 
 bio.display();
+work.display();
+projects.display();
 education.display();
