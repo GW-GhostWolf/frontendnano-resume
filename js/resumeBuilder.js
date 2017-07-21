@@ -99,7 +99,7 @@ var work = {
 
 var projects = {
     projects: [
-        { "title": "", "dates": "", "description": "", "images": [""] }
+        { "title": "APE", "dates": "2014 - 2016", "description": "Agent Profile single point of data entry", "images": ["https://www.mindtools.com/media/Diagrams/Flow-Charts-Figure-5.jpg", "http://artcuratorforkids.com/wp-content/uploads/2015/02/IMG_1956.jpg"] }
     ],
     "display": function () {
         var HTMLprojectStart = '<div class="project-entry"></div>';
@@ -108,6 +108,16 @@ var projects = {
         var HTMLprojectDescription = '<p><br>%data%</p>';
         var HTMLprojectImage = '<img src="%data%">';
         var proj = $("#projects");
+        this.projects.forEach((project) => {
+            var projEntry = $(HTMLprojectStart);
+            projEntry.append(HTMLprojectTitle.replace("%data%", project.title));
+            projEntry.append(HTMLprojectDates.replace("%data%", project.dates));
+            projEntry.append(HTMLprojectDescription.replace("%data%", project.description));
+            project.images.forEach((img) => {
+                projEntry.append(HTMLprojectImage.replace("%data%", img));
+            });
+            proj.append(projEntry);
+        });
     } // display
 }; // projects
 
