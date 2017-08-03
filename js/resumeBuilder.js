@@ -20,7 +20,7 @@ var bio = {
         // contacts in header and footer
         var topContacts = $("#topContacts");
         var bottomContacts = $("#footerContacts");
-        var contact = undefined;
+        var contact;
         function HTMLcontact(key, value) {
             return value ? HTMLcontactGeneric.replace("%contact%", key).replace("%data%", value) : undefined;
         }
